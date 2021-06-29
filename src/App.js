@@ -15,6 +15,8 @@ class App extends React.Component {
 
   handleChange(event){
     event.preventDefault()
+    let newList = [...foods]
+    newList.sort()
     this.setState({[event.target.name]: event.target.value})
   }
 
