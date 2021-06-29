@@ -39,5 +39,3 @@ render(){
     )
 }
 }
-
-export default AddNewFood;

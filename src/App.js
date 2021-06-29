@@ -9,7 +9,14 @@ class App extends React.Component {
   state = {
     foods: foods,
     openForm: false,
+    searchBar:''
+
   };
+
+  handleChange(event){
+    event.preventDefault()
+    this.setState({[event.target.name]: event.target.value})
+  }
 
   openForm() {
     this.setState({
@@ -26,6 +33,7 @@ class App extends React.Component {
       (this.state.openForm && <AddNewFood callback={this.closeForm}/>) || (
         <div>
           <button onClick={() => this.openForm()}>Add new food</button>
+          <input name="searchBar" type="search" placeholder="search..." onChange={(e)=> this.handleChange(e)}></input>
           <ul>
             {foods.map((item) => (
               <li key={item.name}>
