@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AddNewFood extends React.Component {
+export default class AddNewFood extends React.Component {
 state={
     name:'',
     calories:'',
@@ -8,15 +8,11 @@ state={
 
 }
 
-handleFormSubmit =(event) => {
+  handleFormSubmit = (event) => {
     event.preventDefault()
 
-    this.props.addtheNewFood(this.state)
-    this.setState({
-      name: '',
-      calories: '',
-      quantity: ''
-    })
+    this.setState({[event.target.name]: event.target.value})
+    
 }
 
 render(){
