@@ -6,8 +6,10 @@ class FoodBox extends React.Component {
   };
   handelchange(e) {
     let newnumber = Number(e.target.value) > 0 ? e.target.value : '0';
-    console.log(newnumber);
     this.setState({ number: newnumber });
+  }
+  handleAddOnList(e) {
+    
   }
   render() {
     return (
@@ -38,7 +40,9 @@ class FoodBox extends React.Component {
                 />
               </div>
               <div className="control">
-                <button className="button is-info">+</button>
+                <button className="button is-info" onClick={(e) => {
+                  this.handleAddOnList(e)
+                }}>+</button>
               </div>
             </div>
           </div>
