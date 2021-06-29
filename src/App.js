@@ -4,13 +4,15 @@ import foods from './foods.json';
 import FoodBox from './Component/FoodBox';
 import 'bulma/css/bulma.css';
 import AddNewFood from './Component/AddNewFood';
+import ListFood from './Component/FoodList';
 
 class App extends React.Component {
   state = {
     foods: foods,
     openForm: false,
-    searchBar:''
-
+    searchBar:'',
+    listFood:false,
+    listArr : []
   };
 
   handleChange(event) {
@@ -37,6 +39,15 @@ class App extends React.Component {
       openForm: false,
     });
   }
+
+  addOnlist= (obj) => {
+    let listArrCopy = [...this.state.listArr];
+    listArrCopy.push(obj);
+    this.setState({
+      listArr: listArrCopy, 
+    })
+  }
+
   render() {
     return (
       (this.state.openForm && <AddNewFood callback={this.closeForm}/>) || (
@@ -50,10 +61,12 @@ class App extends React.Component {
                   name={item.name}
                   calorie={item.calories}
                   image={item.image}
+                  callback={this.addOnlist}
                 />
               </li>
             ))}
           </ul>
+          {this.state.listFood && <ListFood list= {this.state.listArr}/>}
         </div>
       )
     );

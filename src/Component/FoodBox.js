@@ -9,7 +9,15 @@ class FoodBox extends React.Component {
     this.setState({ number: newnumber });
   }
   handleAddOnList(e) {
-    
+    e.preventDefault();
+    let objFood = {
+      name: this.props.name,
+      calories: this.props.calories,
+      image: this.props.image,
+      quantity: this.state.number
+    };
+    this.props.callback(objFood)
+
   }
   render() {
     return (
