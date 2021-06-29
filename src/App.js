@@ -13,11 +13,18 @@ class App extends React.Component {
 
   };
 
-  handleChange(event){
+  handleChange(event) {
     event.preventDefault()
-    var input, filter, ul, li, a, i, txtValue;
-    input=document.getElementById('myInput');
-    this.setState({[event.target.name]: event.target.value})
+    let newList = foods;
+    if (event.target.value !== "") {
+      const regex = new RegExp("^"+event.target.value, "gi");
+      newList = foods.filter((food) => {
+        return regex.test(food.name);
+      });
+      this.setState({[event.target.name]: event.target.value, foods: newList})
+    } else {
+      this.setState({ [event.target.name]: event.target.value, foods: foods });
+    }
   }
 
   openForm() {
@@ -35,9 +42,9 @@ class App extends React.Component {
       (this.state.openForm && <AddNewFood callback={this.closeForm}/>) || (
         <div>
           <button onClick={() => this.openForm()}>Add new food</button>
-          <input name="searchBar" type="search" id="myInput" onKeyUp="myFunction()" placeholder="search..." onChange={(e)=> this.handleChange(e)}></input>
-          <ul id="myUL">
-            {foods.map((item) => (
+          <input name="searchBar" type="search" placeholder="search..." onChange={(e)=> this.handleChange(e)}></input>
+          <ul>
+            {this.state.foods.map((item) => (
               <li key={item.name}>
                 <FoodBox
                   name={item.name}
