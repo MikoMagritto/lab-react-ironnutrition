@@ -16,9 +16,14 @@ class App extends React.Component {
       openForm: true,
     });
   }
+ closeForm() {
+    this.setState({
+      openForm: false,
+    });
+  }
   render() {
     return (
-      (this.state.openForm && <AddNewFood />) || (
+      (this.state.openForm && <AddNewFood callback={this.closeForm}/>) || (
         <div>
           <button onClick={() => this.openForm()}>Add new food</button>
           <ul>
