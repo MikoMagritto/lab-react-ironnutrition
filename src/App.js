@@ -60,14 +60,24 @@ class App extends React.Component {
     }
     this.setState({
       listArr: listArrCopy,
-      listFood: true
+      listFood: true,
     });
     console.log(this.state);
   };
-
+  addFoodItem = (obj) => {
+    let oldFood = [...this.state.foods];
+    oldFood.push(obj);
+    
+    this.setState({
+      foods: oldFood,
+      openForm: false,
+    });
+    console.log(this.state)
+  };
+  // closeForm={this.closeForm}
   render() {
     return (
-      (this.state.openForm && <AddNewFood callback={this.closeForm} />) || (
+      (this.state.openForm && <AddNewFood  addFoodItem={this.addFoodItem} />) || (
         <div>
           <button onClick={() => this.openForm()}>Add new food</button>
           <input

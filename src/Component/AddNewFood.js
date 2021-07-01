@@ -3,8 +3,7 @@ import React from 'react';
 export default class AddNewFood extends React.Component {
   state = {
     name: '',
-    calories: '',
-    quantity: '',
+    calories: ''
   };
 
   handleFormChange = (event) => {
@@ -13,13 +12,16 @@ export default class AddNewFood extends React.Component {
   };
   handleFormSubmit = (event) => {
     event.preventDefault();
-    this.props.toto();
+    this.props.addFoodItem({
+      ...this.state,
+      image: "https://via.placeholder.com/60"
+    })
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={() => this.handleFormSubmit()}>
+        <form onSubmit={(e) => this.handleFormSubmit(e)}>
           <label>Name</label>
           <input
             type="text"
@@ -36,13 +38,13 @@ export default class AddNewFood extends React.Component {
             onChange={(e) => this.handleFormChange(e)}
           />
 
-          <label>quantity</label>
+          {/* <label>quantity</label>
           <input
             type="number"
             name="quantity"
             checked={this.state.quantity}
             onChange={(e) => this.handleFormChange(e)}
-          />
+          /> */}
 
           <button>Submit</button>
         </form>
