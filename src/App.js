@@ -62,7 +62,6 @@ class App extends React.Component {
       listArr: listArrCopy,
       listFood: true,
     });
-    console.log(this.state);
   };
   addFoodItem = (obj) => {
     let oldFood = [...this.state.foods];
@@ -72,7 +71,14 @@ class App extends React.Component {
       foods: oldFood,
       openForm: false,
     });
-    console.log(this.state);
+  };
+  removeFoodItem = (name) => {
+    let oldFood = [...this.state.listArr];
+    let index = oldFood.findIndex(el => el.name === name);
+    oldFood.splice(index,1)
+    this.setState({
+      listArr: oldFood,
+    });
   };
   // closeForm={this.closeForm}
   render() {
@@ -105,7 +111,7 @@ class App extends React.Component {
               </li>
             ))}
           </ul>
-            {this.state.listFood && <ListFood list={this.state.listArr} />}
+            {this.state.listFood && <ListFood list={this.state.listArr} removeFoodItem={this.removeFoodItem} />}
             </div>
         </div>
       )
