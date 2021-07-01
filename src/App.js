@@ -10,20 +10,23 @@ class App extends React.Component {
   state = {
     foods: foods,
     openForm: false,
-    searchBar:'',
-    listFood:false,
-    listArr : []
+    searchBar: '',
+    listFood: false,
+    listArr: [],
   };
 
   handleChange(event) {
-    event.preventDefault()
+    event.preventDefault();
     let newList = foods;
-    if (event.target.value !== "") {
-      const regex = new RegExp("^"+event.target.value, "gi");
+    if (event.target.value !== '') {
+      const regex = new RegExp('^' + event.target.value, 'gi');
       newList = foods.filter((food) => {
         return regex.test(food.name);
       });
-      this.setState({[event.target.name]: event.target.value, foods: newList})
+      this.setState({
+        [event.target.name]: event.target.value,
+        foods: newList,
+      });
     } else {
       this.setState({ [event.target.name]: event.target.value, foods: foods });
     }
@@ -34,39 +37,58 @@ class App extends React.Component {
       openForm: true,
     });
   }
- closeForm() {
+  closeForm() {
     this.setState({
       openForm: false,
     });
   }
 
-  addOnlist= (obj) => {
+  addOnlist = (obj) => {
     let listArrCopy = [...this.state.listArr];
-    listArrCopy.push(obj);
+    let alreadyInList = listArrCopy.find(
+      (itemList) => itemList.name === obj.name
+    );
+    if (alreadyInList) {
+      listArrCopy.map((itemList) => {
+        if (itemList.name === obj.name) {
+          itemList.quantity = Number(itemList.quantity) + Number(obj.quantity);
+        }
+        return itemList;
+      });
+    } else {
+      listArrCopy.push(obj);
+    }
     this.setState({
-      listArr: listArrCopy, 
-    })
-  }
+      listArr: listArrCopy,
+      listFood: true
+    });
+    console.log(this.state);
+  };
 
   render() {
     return (
-      (this.state.openForm && <AddNewFood callback={this.closeForm}/>) || (
+      (this.state.openForm && <AddNewFood callback={this.closeForm} />) || (
         <div>
           <button onClick={() => this.openForm()}>Add new food</button>
-          <input name="searchBar" type="search" placeholder="search..." onChange={(e)=> this.handleChange(e)}></input>
+          <input
+            name="searchBar"
+            type="search"
+            placeholder="search..."
+            onChange={(e) => this.handleChange(e)}
+          ></input>
           <ul>
             {this.state.foods.map((item) => (
               <li key={item.name}>
                 <FoodBox
                   name={item.name}
-                  calorie={item.calories}
+                  calories={item.calories}
                   image={item.image}
                   callback={this.addOnlist}
                 />
               </li>
             ))}
           </ul>
-          {this.state.listFood && <ListFood list= {this.state.listArr}/>}
+          {this.state.listFood && <ListFood list={this.state.listArr} />}
         </div>
       )
     );
