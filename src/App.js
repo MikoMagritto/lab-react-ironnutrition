@@ -67,26 +67,33 @@ class App extends React.Component {
   addFoodItem = (obj) => {
     let oldFood = [...this.state.foods];
     oldFood.push(obj);
-    
+
     this.setState({
       foods: oldFood,
       openForm: false,
     });
-    console.log(this.state)
+    console.log(this.state);
   };
   // closeForm={this.closeForm}
   render() {
     return (
-      (this.state.openForm && <AddNewFood  addFoodItem={this.addFoodItem} />) || (
-        <div>
-          <button onClick={() => this.openForm()}>Add new food</button>
-          <input
-            name="searchBar"
-            type="search"
-            placeholder="search..."
-            onChange={(e) => this.handleChange(e)}
-          ></input>
-          <ul>
+      (this.state.openForm && (
+        <AddNewFood addFoodItem={this.addFoodItem} />
+      )) || (
+        <div className="app block">
+          <div className="head-app block">
+            <h1 className="title is-1 block">IronNutrition</h1>
+            <button className="button is-light is-inverted block" onClick={() => this.openForm()}>Add new food</button>
+            <input
+              className="input"
+              name="searchBar"
+              type="search"
+              placeholder="search..."
+              onChange={(e) => this.handleChange(e)}
+            ></input>
+          </div>
+          <div className="body-app">
+          <ul className="sub-block">
             {this.state.foods.map((item) => (
               <li key={item.name}>
                 <FoodBox
@@ -98,7 +105,8 @@ class App extends React.Component {
               </li>
             ))}
           </ul>
-          {this.state.listFood && <ListFood list={this.state.listArr} />}
+            {this.state.listFood && <ListFood list={this.state.listArr} />}
+            </div>
         </div>
       )
     );

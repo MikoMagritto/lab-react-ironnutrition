@@ -8,21 +8,42 @@ export default class ListFood extends React.Component {
       0
     );
     return (
-      <>
-        <h2>Today's foods</h2>
-        <ul>
-          {this.props.list.map((item) => {
-            console.log(item);
-            return (
-              <li key={item.name}>
-                {item.quantity} {item.name} {item.calories}cal each.  Total:{' '}
-                {Number(item.quantity) * Number(item.calories)}
-              </li>
-            );
-          })}
-        </ul>
-        <p>Total calories for the day : {totalCal}cal</p>
-      </>
+      <div className="sub-block">
+        <h2 className="title is-2 block">Today's foods</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Calories</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>Total</th>
+              <th>{totalCal}</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {this.props.list.map((item) => {
+              console.log(item);
+              return (
+                <tr key={item.name}>
+                  <th>{item.name}</th>
+                  <th>{item.quantity}</th>
+                  <th>{item.calories}</th>
+                  <th>{Number(item.quantity) * Number(item.calories)}</th>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
+        {/* <h4 className="title is-4">Total: {totalCal} cal</h4> */}
+      </div>
     );
   }
 }
